@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model request {
+  id          Int       @id @unique @default(autoincrement())
+  createdAt   DateTime  @default(now()) @map("create_date") @db.Timestamptz(3)
+  updatedAt   DateTime? @updatedAt @map("update_time") @db.Timestamptz(3)
+  firstName   String    @map("first_name") @db.VarChar(25)
+  lastName    String?   @map("last_name") @db.VarChar(25)
+  middleName  String?   @map("middle_name") @db.VarChar(25)
+  phoneNumber String    @map("phone_number") @db.VarChar(25)
+  email       String?   @db.VarChar(30)
+  recalled    Boolean   @default(false)
+  answered    Boolean?
+  appointment Boolean?
+}
+
+model user {
+  id          Int       @id @unique @default(autoincrement())
+  createdAt   DateTime  @default(now()) @map("create_date") @db.Timestamptz(3)
+  updatedAt   DateTime? @updatedAt @map("update_time") @db.Timestamptz(3)
+  login       String    @unique @db.VarChar(30)
+  password    String    @db.VarChar(70)
+  salt        String    @db.VarChar(30)
+  email       String    @unique @db.VarChar(30)
+  firstName   String?   @map("first_name") @db.VarChar(25)
+  lastName    String?   @map("last_name") @db.VarChar(25)
+  middleName  String?   @map("middle_name") @db.VarChar(25)
+  phoneNumber String?   @map("phone_number") @db.VarChar(25)
+  posts       post[]
+}
+
+model category {
+  id           Int     @id @unique @default(autoincrement())
+  categoryName String? @map("category_name") @db.VarChar(20)
+  categoryUrl  String? @map("category_url") @db.VarChar(20)
+  posts        post[]
+}
+
+model post {
+  id          Int       @id @unique @default(autoincrement())
+  author      user      @relation(fields: [authorId], references: [id])
+  authorId    Int       @map("author_id")
+  category    category  @relation(fields: [categoryId], references: [id])
+  categoryId  Int       @map("category_id")
+  createdAt   DateTime  @default(now()) @map("create_date") @db.Timestamptz(3)
+  updatedAt   DateTime? @updatedAt @map("update_time") @db.Timestamptz(3)
+  title       String    @db.VarChar(50)
+  description String?   @db.Text
+  text        String    @db.Text
+}

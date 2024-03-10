@@ -1,0 +1,13 @@
+{
+    "take": 2,
+    "skip": 0,
+    "cursor": {
+        "id": 1
+    },
+    "where": {
+        "categoryId": 1
+    },
+    "orderBy": {
+        "id": "desc"
+    }
+}
