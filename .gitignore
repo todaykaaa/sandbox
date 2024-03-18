@@ -75,3 +75,7 @@ front/!.vscode/settings.json
 front/!.vscode/tasks.json
 front/!.vscode/launch.json
 front/!.vscode/extensions.json
+
+#DEVOPS
+devops/.vscode/*
+devops/sandbox

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  selector:
+    matchLabels:
+      name: backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: backend
+    spec:
+      containers:
+        - name: backend
+          image: "todaykaaa/todaykaaa:back"
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-env
+                  key: DATABASE_URL
+            - name: AUTH
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-env
+                  key: AUTH

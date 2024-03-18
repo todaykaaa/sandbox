@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      name: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: "todaykaaa/todaykaaa:front"
+          env:
+            - name: NEXT_PUBLIC_HOST_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-env
+                  key: BACKEND_URL
+            - name: NEXT_PUBLIC_API_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-env
+                  key: API_PATH
