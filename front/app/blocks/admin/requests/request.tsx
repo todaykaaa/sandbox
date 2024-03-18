@@ -19,7 +19,11 @@ import {
 
 import { useState, useEffect, startTransition } from 'react'
 import { useRouter } from 'next/navigation';
+import { Config } from 'config/main.config'
 
+const restRequestUrl = Config.apiHost
+    + Config.apiPath
+    + Config.servicePath.request;
 
 export default function RequestBlock(requests) {
 
@@ -35,7 +39,7 @@ export default function RequestBlock(requests) {
             this.answered = answered
             this.appointment = appointment
         }
-        fetch(process.env.NEXT_PUBLIC_REST_URL + '/request/' + id, {
+        fetch(restRequestUrl + '/update/' + id, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
@@ -49,7 +53,7 @@ export default function RequestBlock(requests) {
     }
 
     function deleteRequest(id: string) {
-        fetch(process.env.NEXT_PUBLIC_REST_URL + '/request/' + id, {
+        fetch(restRequestUrl + '/delete/' + id, {
             method: 'DELETE'
         });
         startTransition(() => {

@@ -13,7 +13,11 @@ import PaginationComponent from "app/components/pagination";
 import { useState, useEffect, memo, startTransition } from 'react'
 import { useRouter } from 'next/navigation';
 import { AddIcon, ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { Config } from 'config/main.config'
 
+const restPostUrl = Config.apiHost
+    + Config.apiPath
+    + Config.servicePath.post;
 
 export default function PostsBlock(params) {
 
@@ -76,7 +80,7 @@ export default function PostsBlock(params) {
     function handlePaginationOnClick(buttonId: string, sort: string, pageSize: number, pageNumber: number) {
 
         const res = fetch(
-            process.env.NEXT_PUBLIC_REST_URL + `/posts?sort=${sort}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
+            restPostUrl + `/get?sort=${sort}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
             { cache: 'no-store' }
         ).then((res) => {
             res.json()

@@ -9,6 +9,11 @@ import LoadingComponent from "app/components/loading";
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
+import { Config } from 'config/main.config'
+
+const restPostUrl = Config.apiHost
+    + Config.apiPath
+    + Config.servicePath.post;
 
 
 export default function PostBlock(data) {
@@ -21,7 +26,7 @@ export default function PostBlock(data) {
             text: '',
         },
         onSubmit: (values) => {
-            fetch(process.env.NEXT_PUBLIC_REST_URL + '/post/' + postData.id, {
+            fetch(restPostUrl + '/update/' + postData.id, {
                 method: 'PATCH',
                 headers: {
                     "Content-Type": "application/json",

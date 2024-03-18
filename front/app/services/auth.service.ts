@@ -1,12 +1,15 @@
 
 import { AuthToken } from './auth.token'
+import { Config } from 'config/main.config'
 
-const API_URL = process.env.NEXT_PUBLIC_REST_URL + '/auth/login';
+const restAuthUrl = Config.apiHost
+    + Config.apiPath
+    + Config.servicePath.auth;
 
 class AuthService {
 
     login(values) {
-        return fetch(API_URL, {
+        return fetch(restAuthUrl + '/login', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

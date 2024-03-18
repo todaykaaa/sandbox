@@ -2,7 +2,7 @@ import React from 'react'
 import { CalendarIcon } from "@chakra-ui/icons";
 import {
     Box, Heading, Button,
-    Icon, Input, Flex, VStack, useToast
+    Input, Flex, VStack, useToast
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import {
@@ -12,10 +12,13 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from 'formik';
 import {
-    FormControl, FormLabel,
-    FormErrorMessage, FormHelperText
+    FormControl, FormLabel
 } from "@chakra-ui/react";
+import { Config } from 'config/main.config'
 
+const restRequestUrl = Config.apiHost
+    + Config.apiPath
+    + Config.servicePath.request;
 
 export default function AppointmentBlock() {
 
@@ -39,7 +42,7 @@ export default function AppointmentBlock() {
             email: ""
         },
         onSubmit: (values) => {
-            fetch(process.env.NEXT_PUBLIC_REST_URL + '/request', {
+            fetch(restRequestUrl + '/create', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",

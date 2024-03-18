@@ -1,5 +1,10 @@
 import AdminRequestsPage from 'app/pages/admin/requests';
 import { Metadata } from 'next';
+import { Config } from 'config/main.config'
+
+const restRequestUrl = Config.apiHost
+    + Config.apiPath
+    + Config.servicePath.request;
 
 
 export const metadata: Metadata = {
@@ -9,14 +14,14 @@ export const metadata: Metadata = {
 
 async function getNeedCallRequests() {
     const res = await fetch(
-        process.env.NEXT_PUBLIC_REST_URL + '/requests?recalled=false',
+        restRequestUrl + '/get?recalled=false',
         { cache: 'no-store' }
     )
     return res.json();
 }
 async function getNeedRecallRequests() {
     const res = await fetch(
-        process.env.NEXT_PUBLIC_REST_URL + '/requests?recalled=true&answered=false',
+        restRequestUrl + '/get?recalled=true&answered=false',
         { cache: 'no-store' }
     )
     return res.json();
@@ -24,7 +29,7 @@ async function getNeedRecallRequests() {
 
 async function getAppointedRequests() {
     const res = await fetch(
-        process.env.NEXT_PUBLIC_REST_URL + '/requests?recalled=true&answered=true&appointment=true',
+        restRequestUrl + '/get?recalled=true&answered=true&appointment=true',
         { cache: 'no-store' }
     )
     return res.json();

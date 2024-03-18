@@ -1,5 +1,10 @@
 import AdminPostPage from 'app/pages/admin/post';
 import { Metadata } from 'next';
+import { Config } from 'config/main.config'
+
+const restPostUrl = Config.apiHost
+    + Config.apiPath
+    + Config.servicePath.post;
 
 
 export const metadata: Metadata = {
@@ -9,7 +14,7 @@ export const metadata: Metadata = {
 
 async function getPost(postId: string) {
     const res = await fetch(
-        process.env.NEXT_PUBLIC_REST_URL + '/post/' + postId,
+        restPostUrl + '/get/' + postId,
         { cache: 'no-store' }
     ).catch(e => { throw e })
     return res.json();

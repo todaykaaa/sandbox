@@ -5,16 +5,19 @@ import {
 import { AuthService } from './auth.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { AuthSignInDto } from './dto/auth-sign-in.dto'
+import { Config } from 'config/main.config'
+
+const apiPath: string = Config['apiPath'];
+const authServicePath = Config.servicePath['auth'];
 
 
-
-@Controller('auth')
+@Controller(apiPath + '/auth')
 export class AuthController {
     constructor(private authService: AuthService) { }
 
 
     @HttpCode(HttpStatus.OK)
-    @Post('login')
+    @Post('/login')
     @ApiOperation({ summary: 'Аутентификация по логину и паролю' })
     signIn(@Body() authSignInDto: AuthSignInDto) {
         return this.authService.signIn(
