@@ -4,5 +4,5 @@ metadata:
   name: frontend-env
   namespace: default
 data:
-  BACKEND_URL: "http://host.docker.internal"
+  BACKEND_URL: "https://host.docker.internal"
   API_PATH: "/api/v1"

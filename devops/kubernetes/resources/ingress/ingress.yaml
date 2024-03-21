@@ -6,6 +6,13 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - localhost
+      secretName: backend-tls
+    - hosts:
+        - host.docker.internal
+      secretName: backend-tls
   rules:
     - host: localhost
       http:

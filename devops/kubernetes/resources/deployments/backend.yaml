@@ -18,9 +18,9 @@ spec:
           env:
             - name: DATABASE_URL
               valueFrom:
-                configMapKeyRef:
-                  name: backend-env
-                  key: DATABASE_URL
+                secretKeyRef:
+                  name: backend-secrets
+                  key: url
             - name: AUTH
               valueFrom:
                 configMapKeyRef:
